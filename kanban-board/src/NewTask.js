@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './NewTask.css';
 import { db } from './firebase';
 import { collection, addDoc } from 'firebase/firestore';
+import { IconButton } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const NewTask = ({ isOpen, onClose }) => {
   const [title, setTitle] = useState('');
@@ -36,12 +38,15 @@ const NewTask = ({ isOpen, onClose }) => {
     <div className="NewTask-overlay">
       <div className="NewTask-container">
         <div className="NewTask-header">
+          <IconButton>
+            <AddCircleIcon sx={{ color: '#8A31E5', marginRight: '8px' }} />
+          </IconButton>
           <h2>Create New Task</h2>
           <button className="NewTask-close" onClick={onClose}>X</button>
         </div>
         <form className="NewTask-form" onSubmit={handleSubmit}>
           <label>
-            Title:<span className="NewTask-required">*</span>
+            Title:<span className="NewTask-required"></span>
             <input
               type="text"
               placeholder="Enter title"
@@ -59,7 +64,7 @@ const NewTask = ({ isOpen, onClose }) => {
             />
           </label>
           <label>
-            Select Date:<span className="NewTask-required">*</span>
+            Select Date:<span className="NewTask-required"></span>
             <input
               type="date"
               required

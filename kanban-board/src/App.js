@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import logo from '../src/images/logo.svg';
-import NewTask from './NewTask'; // Updated import
+import logo from './images/logo.svg'; 
+import NewTask from './NewTask'; 
+import TaskList from './TaskList'; 
 import './App.css';
 
 function App() {
@@ -12,9 +13,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img 
-          src={logo} 
-          className="App-logo-top-left" 
+        <img
+          src={logo}
+          className="App-logo-top-left"
           alt="logo"
         />
       </header>
@@ -25,6 +26,9 @@ function App() {
       </div>
 
       <NewTask isOpen={isNewTaskOpen} onClose={handleCloseNewTask} />
+      
+    
+      <TaskList />
     </div>
   );
 }
