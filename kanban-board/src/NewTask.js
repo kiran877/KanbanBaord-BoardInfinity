@@ -25,11 +25,9 @@ const NewTask = ({ isOpen, onClose }) => {
         status,
         priority,
       });
-      console.log('Task created successfully with ID: ', docRef.id);
       alert('Task created successfully');
       onClose();
     } catch (error) {
-      console.error('Error creating task: ', error);
       alert('Error creating task');
     }
   };
