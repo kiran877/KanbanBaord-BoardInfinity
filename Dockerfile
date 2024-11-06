@@ -4,14 +4,16 @@ FROM node:18-slim
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and install dependencies
-COPY package.json /app/package.json
-RUN npm install
+# Copy package.json and package-lock.json
+COPY package*.json /app/
 
-# Copy the rest of your application code
+# Install dependencies (npm install)
+RUN npm install --production
+
+# Copy the rest of the application code
 COPY . .
 
-# Define build-time arguments
+# Define build-time arguments for Firebase keys
 ARG REACT_APP_FIREBASE_API_KEY
 ARG REACT_APP_FIREBASE_AUTH_DOMAIN
 ARG REACT_APP_FIREBASE_PROJECT_ID
@@ -20,7 +22,7 @@ ARG REACT_APP_FIREBASE_MESSAGING_SENDER_ID
 ARG REACT_APP_FIREBASE_APP_ID
 ARG REACT_APP_FIREBASE_MEASUREMENT_ID
 
-# Set environment variables for the running application
+# Set environment variables for Firebase configuration
 ENV REACT_APP_FIREBASE_API_KEY=${REACT_APP_FIREBASE_API_KEY}
 ENV REACT_APP_FIREBASE_AUTH_DOMAIN=${REACT_APP_FIREBASE_AUTH_DOMAIN}
 ENV REACT_APP_FIREBASE_PROJECT_ID=${REACT_APP_FIREBASE_PROJECT_ID}
@@ -29,8 +31,11 @@ ENV REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${REACT_APP_FIREBASE_MESSAGING_SENDER
 ENV REACT_APP_FIREBASE_APP_ID=${REACT_APP_FIREBASE_APP_ID}
 ENV REACT_APP_FIREBASE_MEASUREMENT_ID=${REACT_APP_FIREBASE_MEASUREMENT_ID}
 
-# Expose the desired port
+# Build the app 
+RUN npm run build
+
+# Expose the desired port 
 EXPOSE 80
 
-# Command to run your application
+# Command to start the application
 CMD ["npm", "start"]
